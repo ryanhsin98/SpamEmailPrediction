@@ -17,7 +17,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LogisticRegression
 
 #匯入資料
-data = pd.read_csv('combine.csv')
+data = pd.read_csv('dataset.csv')
 data
 
 #刪除bounce rate或complaint rate等異常值為1
@@ -27,9 +27,6 @@ mask2 = data['complaint'] != 1
 data = data[(mask2)]
 mask3 = data['unsubscribed'] != 1
 data = data[(mask3)]
-
-data
-#[315 rows x 8 columns]
 
 #主動分類label
 data['complaint'].describe()
@@ -41,8 +38,6 @@ data['spam_label'] = np.where(data['complaint'] >  0.074537, 1 ,\
                               np.where(data['complaint'] <=  0.074537, 0,0))
 
 data['spam_label'].value_counts()
-#0    257 236
-#1    84 79
 
 #%%
 '''
@@ -108,7 +103,7 @@ print("%0.2f f1-score with a standard deviation of %0.2f" % (scores.mean(), scor
 
 #%%
 '''
-lOGISTIC REGRESSION
+LOGISTIC REGRESSION
 '''
 
 #Grid search
@@ -133,18 +128,3 @@ print("%0.2f accuracy with a standard deviation of %0.2f" % (scores.mean(), scor
 scores = cross_val_score(best_logreg, x_smote, y_smote, cv=5, scoring='f1_macro')
 scores
 print("%0.2f f1-score with a standard deviation of %0.2f" % (scores.mean(), scores.std()))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
